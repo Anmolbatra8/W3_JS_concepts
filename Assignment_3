@@ -1,0 +1,138 @@
+//ASSIGNMENT - 3 (WEEK 3)
+//NAME :ANMOL BATRA
+
+
+//DATA: 
+
+const library = [
+    { 
+title: "The Great Gatsby", 
+author: "F. Scott Fitzgerald", 
+year: 1925,
+   pages: 180 
+},
+    {
+title: "To Kill a Mockingbird",
+author: "Harper Lee", 
+year: 1960, 
+pages: 281
+},
+    {
+title: "1984", 
+author: "George Orwell", 
+year: 1949, 
+pages: 328 
+},
+    {
+title: "Pride and Prejudice", 
+author: "Jane Austen", 
+year: 1813,
+pages: 432 
+} ]
+
+
+
+//Q1: To calculate Total no. of pages in the Library
+
+
+//Attempted Solution: 
+
+let totalPages = library.reduce((total,{pages}) => {
+    total += pages;
+    return total; 
+},0);
+
+console.log("Total Pages in the Library: ",totalPages); // prints out total number of pages in Library
+
+//Approach:
+/*
+-syntax of reduce is : array.reduce(accumulator,current,index,array) 
+-So here we have to accumulate the value of pages,
+-totalpages is accumulator and current value is of key : {pages}
+-the second parameter is "default value " which we set to "0" otherwise first pages value will be alloted and wrong solution generated
+-In Every iteration a subtotal is returned , hence "Accumulating our desired result" and returning the total no of pages in the Library
+
+*/
+
+
+
+//Q2: To Get Names of All the books  in the Library
+
+//Attempted Solution: 
+
+let booknames = library.reduce((names,{title}) => {
+    names.push(title)
+    return names;
+},[])
+
+console.log("Titles of All Books: ",booknames); // prints an array of All Book names
+
+//Approach:
+/*
+-the parameters: "names" is an Accumulator whereas "{title}" is current value of title key 
+-which is getting pushed into the "ames array" 
+- we initialsed names' state in the second paramter after comma
+*/
+
+
+
+
+
+
+
+//Q3: To Get Titles of All the books published after 1900:
+
+//Attempted Solution: 
+
+const timedbooks = library.filter(book => book.year > 1900);
+
+const titlesOfTimedBooks = timedbooks.map(book => book.title);
+
+console.log("Title of books Published after 1900 : ",titlesOfTimedBooks);
+
+//Approach:
+/*
+-first we filterdown to the elements which contain details of the books published after 1900
+-then on that filtered array , we perform transformation by help of map and returning title of each
+*/
+
+
+//Q4: To Get Avg Number of pages in the Library:
+
+//Attempted Solution: 
+const avgpages = library.reduce((total,{pages},index,library) =>{
+      total += pages;
+
+      //If the Element has accumulated till last index , then divide sum by length , 
+      //we will get average
+      if ( index == library.length -1){
+        return(total/library.length);
+        }else{
+            return total;
+        }
+} ,0)
+console.log("Avg number Of Pages In The Library is: " ,Math.trunc(Number(avgpages)));
+
+//Approach:
+/*
+-almost similar to getting sum 
+-when we reach the end, we divide sum / length , therefore giving average
+
+*/
+
+//Q5: TO FIND LONGEST BOOK 
+
+function  longestbook(library){
+    let longestbooktitle = null;
+    let maxlength =0;
+    
+    for(const book of library) {
+        if(book.pages > maxlength ) {
+            longestbooktitle = book.title;
+            maxlength = book.pages;
+        }
+    }
+    return longestbooktitle;
+}
+
+console.log(longestbook(library ));
